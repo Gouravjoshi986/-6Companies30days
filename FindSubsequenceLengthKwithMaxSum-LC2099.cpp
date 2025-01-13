@@ -23,3 +23,27 @@ public:
         return ans;
     }
 };
+
+// We can optimize space and some time using a boolean array to track index of those k elements 
+
+class Solution {
+public:
+    vector<int> maxSubsequence(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<pair<int,int>>arr;
+        for(int i=0;i<n;i++){
+            arr.push_back({nums[i],i});
+        }
+        sort(arr.begin(),arr.end());
+        vector<bool>index(n,false);
+        for(int i=n-1;i>=0 && k>0;i--,k--){
+            index[arr[i].second] = true;
+        }
+
+        vector<int>ans;
+        for(int i=0;i<n;i++){
+            if(index[i]) ans.push_back(nums[i]);
+        }
+        return ans;
+    }
+}; 
